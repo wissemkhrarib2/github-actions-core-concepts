@@ -2,9 +2,9 @@ name: First workflow
 on: push
 jobs:
     test-job:
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-latest
         steps:
-            - name: testing workflow
-              run: echo "testing ..."
-            - name: displaying readme file content
+            - name: Executing the test job
+              run: echo "Executing the test job ..."
+            - name: Displaying README.md content
               run: cat README.md
