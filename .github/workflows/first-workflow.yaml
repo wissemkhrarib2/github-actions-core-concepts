@@ -4,11 +4,9 @@ jobs:
     test-job:
         runs-on: ubuntu-latest
         steps:
-            - name: Executing the test job
-              run: echo "Executing the test job ..."
-            
             - name: checkout repo
               uses: actions/checkout@v4
-
-            - name: Displaying README.md content
-              run: cat README.md
+            
+            - name: Executing the test job
+              run: echo "Executing the test job ..."
+                   cat README.md
