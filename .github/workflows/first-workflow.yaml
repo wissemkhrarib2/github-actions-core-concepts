@@ -9,5 +9,5 @@ jobs:
             
             - name: Executing the test job
               run: | 
-                  echo "Executing the test job ..."
+                  echo "Executing  the test job ..."
                   cat README.md
