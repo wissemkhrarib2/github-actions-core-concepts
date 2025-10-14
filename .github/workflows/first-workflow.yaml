@@ -5,7 +5,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Build job
-              run: 
+              run: |
                 - sleep 3
                 - echo "This is the BUILD job."
     test-job:
@@ -13,7 +13,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Testing
-              run: 
+              run: |
                 - sleep 3
                 - echo "This is the TEST job."
     deploy-job:
