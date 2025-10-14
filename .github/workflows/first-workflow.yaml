@@ -13,6 +13,6 @@ jobs:
               run: echo "This is the TEST job."
     deploy-job:
         runs-on: ubuntu-latest
-        stepls: 
+        steps: 
             - name: Deploy job
               run: echo "This is the DEPLOY job."
