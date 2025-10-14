@@ -7,8 +7,7 @@ jobs:
             - name: Build job
               run: |
                 sleep 3
-                echo "This is the BUILD job."
-                exit 1
+                echo "building the app..." > app.txt
     test-job:
         needs: build-job
         runs-on: ubuntu-latest
@@ -16,10 +15,14 @@ jobs:
             - name: Testing
               run: |
                 sleep 3
-                echo "This is the TEST job."
+                cat app.txt
+                echo "testing the app..." >> app.txt
     deploy-job:
         needs: test-job
         runs-on: ubuntu-latest
         steps: 
             - name: Deploy job
-              run: echo "This is the DEPLOY job."
+              run: |
+                sleep 3
+                cat app.txt
+                echo "deploying the app..." >> app.txt
