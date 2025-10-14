@@ -6,7 +6,7 @@ jobs:
         steps:
             - name: Build job
               run: 
-                - sleep 3s
+                - sleep 3
                 - echo "This is the BUILD job."
     test-job:
         needs: build-job
@@ -14,7 +14,7 @@ jobs:
         steps:
             - name: Testing
               run: 
-                - sleep 3s
+                - sleep 3
                 - echo "This is the TEST job."
     deploy-job:
         needs: test-job
