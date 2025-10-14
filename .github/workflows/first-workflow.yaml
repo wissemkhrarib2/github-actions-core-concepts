@@ -7,11 +7,13 @@ jobs:
             - name: Build job
               run: echo "This is the BUILD job."
     test-job:
+      needs: build-job
         runs-on: ubuntu-latest
         steps:
             - name: Testing
               run: echo "This is the TEST job."
     deploy-job:
+        needs: test-job
         runs-on: ubuntu-latest
         steps: 
             - name: Deploy job
