@@ -8,6 +8,7 @@ jobs:
               run: |
                 sleep 3
                 echo "This is the BUILD job."
+                exit 1
     test-job:
         needs: build-job
         runs-on: ubuntu-latest
