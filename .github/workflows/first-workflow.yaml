@@ -5,7 +5,11 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - name: Build the image
-        run: echo docker build . -t docker.io/wissem/app
+        env:
+          CONTAINER_REGISTRY: docker.io
+          DOCKER_USERNAME: wissem
+          IMAGE_NAME: app
+        run: echo docker build . -t $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME
 
       - name: Login
         run: echo docker login --username=wissem --password=*******
