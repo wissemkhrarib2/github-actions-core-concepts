@@ -3,19 +3,19 @@ on: push
 jobs: 
   docker-job:
     runs-on: ubuntu-latest
-    steps: 
-      - name: Build the image
-        env:
+    env:
           CONTAINER_REGISTRY: docker.io
           DOCKER_USERNAME: wissem
           IMAGE_NAME: app
+    steps: 
+      - name: Build the image
         run: echo docker build . -t $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME
 
       - name: Login
-        run: echo docker login --username=wissem --password=*******
+        run: echo docker login --username=$DOCKER_USERNAME --password=*******
 
       - name: Push the image
-        run: echo docekr push docker.io/wissem/app
+        run: echo docekr push $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME
   
   deploy-job:
     needs: docker-job
