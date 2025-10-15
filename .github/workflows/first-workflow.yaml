@@ -11,7 +11,7 @@ jobs:
         run: echo docker login --username=wissem --password=*******
 
       - name: Push the image
-        steps: echo docekr push docker.io/wissem/app
+        run: echo docekr push docker.io/wissem/app
   
   deploy-job:
     needs: docker-job
