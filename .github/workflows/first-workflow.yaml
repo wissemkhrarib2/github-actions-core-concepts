@@ -1,12 +1,12 @@
 name: Build and deploy
 on: push
-jobs: 
-  docker-job:
-    runs-on: ubuntu-latest
-    env:
+env:
           CONTAINER_REGISTRY: docker.io
           DOCKER_USERNAME: wissem
           IMAGE_NAME: app
+jobs: 
+  docker-job:
+    runs-on: ubuntu-latest
     steps: 
       - name: Build the image
         run: echo docker build . -t $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME
@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run the app
-        run: echo docker run docker.io/wissem/app
+        run: echo docker run $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME
 
 
 
