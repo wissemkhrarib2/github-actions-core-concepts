@@ -1,46 +1,70 @@
-name: First workflow
+name: Build and deploy
 on: push
-jobs:
-    build-job: 
-        runs-on: ubuntu-latest
-        steps:
-            - name: Build job
-              run: |
-                sleep 3
-                echo "building the app..." > app.txt
+jobs: 
+  docker-job:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Build the image
+        run: echo docker build . -t docker.io/wissem/app
 
-            - name: upload the app.txt file
-              uses: actions/upload-artifact@v4
-              with:
-                  name: app-text-file
-                  path: app.txt
-                  
-    test-job:
-        needs: build-job
-        runs-on: ubuntu-latest
-        steps:
-            - name: download the app.txt file
-              uses: actions/download-artifact@v5
-              with:
-                  name: app-text-file
+      - name: Login
+        run: echo docker login --username=wissem --password=*******
 
-            - name: Testing
-              run: |
-                sleep 3
-                cat app.txt
-                echo "testing the app..."
+      - name: Push the image
+        steps: echo docekr push docker.io/wissem/app
+  
+  deploy-job:
+    needs: docker-job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run the app
+        run: echo docker run docker.io/wissem/app
+
+
+
+# name: First workflow
+# on: push
+# jobs:
+#     build-job: 
+#         runs-on: ubuntu-latest
+#         steps:
+#             - name: Build job
+#               run: |
+#                 sleep 3
+#                 echo "building the app..." > app.txt
+
+#             - name: upload the app.txt file
+#               uses: actions/upload-artifact@v4
+#               with:
+#                   name: app-text-file
+#                   path: app.txt
+
+#     test-job:
+#         needs: build-job
+#         runs-on: ubuntu-latest
+#         steps:
+#             - name: download the app.txt file
+#               uses: actions/download-artifact@v5
+#               with:
+#                   name: app-text-file
+
+#             - name: Testing
+#               run: |
+#                 sleep 3
+#                 cat app.txt
+#                 echo "testing the app..."
             
-    deploy-job:
-        needs: test-job
-        runs-on: ubuntu-latest
-        steps: 
-            - name: download the app.txt file
-              uses: actions/download-artifact@v5
-              with:
-                  name: app-text-file
+#     deploy-job:
+#         needs: test-job
+#         runs-on: ubuntu-latest
+#         steps: 
+#             - name: download the app.txt file
+#               uses: actions/download-artifact@v5
+#               with:
+#                   name: app-text-file
 
-            - name: Deploy job
-              run: |
-                sleep 3
-                cat app.txt
-                echo "deploying the app..."
+#             - name: Deploy job
+#               run: |
+#                 sleep 3
+#                 cat app.txt
+#                 echo "deploying the app..."
