@@ -1,40 +1,22 @@
 name: Build and deploy
-on:
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-        - info
-        - warning
-        - debug
-      tags:
-        description: 'Test scenario tags'
-        required: false
-        type: boolean
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        required: true
+on: push
 env:
           CONTAINER_REGISTRY: docker.io
           DOCKER_USERNAME: wissem
           IMAGE_NAME: app
 jobs: 
   docker-job:
+    timeout-minutes: 1
     runs-on: ubuntu-latest
     steps: 
       - name: Build the image
-        run: echo docker build . -t $CONTAINER_REGISTRY/${{vars.DOCKER_USERNAME}}/$IMAGE_NAME
-
+        run: sleep 50
+        
       - name: Login
-        run: echo docker login --username=${{vars.DOCKER_USERNAME}} --password=${{ secrets.DOCKER_PASSWORD }}
+        run: sleep 50
 
       - name: Push the image
-        run: echo docekr push $CONTAINER_REGISTRY/${{vars.DOCKER_USERNAME}}/$IMAGE_NAME
+        run: sleep 10000
   
   deploy-job:
     needs: docker-job
