@@ -1,7 +1,5 @@
 name: Build and deploy
-on:
-   schedule:
-     - cron: "* * * * *"
+on: workflow_dispatch
 env:
           CONTAINER_REGISTRY: docker.io
           DOCKER_USERNAME: wissem
