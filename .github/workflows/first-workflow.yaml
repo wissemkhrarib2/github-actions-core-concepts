@@ -9,20 +9,20 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - name: Build the image
-        run: echo docker build . -t $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME
+        run: echo docker build . -t $CONTAINER_REGISTRY/${{vars.DOCKER_USERNAME}}/$IMAGE_NAME
 
       - name: Login
-        run: echo docker login --username=$DOCKER_USERNAME --password=*******
+        run: echo docker login --username=${{vars.DOCKER_USERNAME}} --password=${{ secrets.password }}
 
       - name: Push the image
-        run: echo docekr push $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME
+        run: echo docekr push $CONTAINER_REGISTRY/${{vars.DOCKER_USERNAME}}/$IMAGE_NAME
   
   deploy-job:
     needs: docker-job
     runs-on: ubuntu-latest
     steps:
       - name: Run the app
-        run: echo docker run $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME
+        run: echo docker run $CONTAINER_REGISTRY/${{vars.DOCKER_USERNAME}}/$IMAGE_NAME
 
 
 
