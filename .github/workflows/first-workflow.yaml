@@ -7,13 +7,13 @@ jobs:
       max-parallel: 2
       matrix:
         os: [ubuntu-latest, windows-latest]
-        images: [hello-world, nginx]
+        images: [hello-world, alpine]
         exclude:
           - os: windows-latest
-            images: nginx
+            images: alpine
         include: 
           - os: ubuntu-latest
-            images: nginx:alpine
+            images: node:alpine
     runs-on: ${{ matrix.os }}
     steps:
       - name: Create a ${{ matrix.images }} container on ${{ matrix.os }}
