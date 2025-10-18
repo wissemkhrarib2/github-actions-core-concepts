@@ -1,30 +1,54 @@
-name: Build and deploy
-on: workflow_dispatch
-env:
-          CONTAINER_REGISTRY: docker.io
-          DOCKER_USERNAME: wissem
-          IMAGE_NAME: app
-jobs: 
-  docker-job:
-    runs-on: ubuntu-latest
-    steps: 
-      - name: Build the image
-        run: echo docker build $CONTAINER_REGISTRY/${{vars.DOCKER_USERNAME}}/$IMAGE_NAME
-        
-      - name: Login
-        run: echo docker login  --username=${{vars.DOCKER_USERNAME}} --password=123456789
-
-      - name: Push the image
-        run: echo docker run $CONTAINER_REGISTRY/${{vars.DOCKER_USERNAME}}/$IMAGE_NAME
-  
-  deploy-job:
-    needs: docker-job
+name: Test docker image
+on: push
+jobs:
+  deploy-on-ubuntu:
     runs-on: ubuntu-latest
     steps:
-      - name: Run the app
-        run: |
-          echo docker run $CONTAINER_REGISTRY/${{vars.DOCKER_USERNAME}}/$IMAGE_NAME
-          sleep 6000
+      - name: create a container
+        run: docker run hello-world 
+  deploy-on-windows:
+    runs-on: windows-latest
+    steps:
+      - name: create a container
+        run: docker run hello-world 
+
+
+
+
+
+
+
+
+# name: Build and deploy
+# on: workflow_dispatch
+# env:
+#           CONTAINER_REGISTRY: docker.io
+#           DOCKER_USERNAME: wissem
+#           IMAGE_NAME: app
+# jobs: 
+#   docker-job:
+#     runs-on: ubuntu-latest
+#     steps: 
+#       - name: Build the image
+#         run: echo docker build $CONTAINER_REGISTRY/${{vars.DOCKER_USERNAME}}/$IMAGE_NAME
+        
+#       - name: Login
+#         run: echo docker login  --username=${{vars.DOCKER_USERNAME}} --password=123456789
+
+#       - name: Push the image
+#         run: echo docker run $CONTAINER_REGISTRY/${{vars.DOCKER_USERNAME}}/$IMAGE_NAME
+  
+#   deploy-job:
+#     concurrency: 
+#       group: deploy-to-prod
+#       cancel-in-progress: true
+#     needs: docker-job
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Run the app
+#         run: |
+#           echo docker run $CONTAINER_REGISTRY/${{vars.DOCKER_USERNAME}}/$IMAGE_NAME
+#           sleep 6000
 
 
 
