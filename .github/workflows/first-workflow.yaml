@@ -4,9 +4,11 @@ jobs:
   deploy:
     strategy:
       fail-fast: false
+      max-parallel: 2
       matrix:
         os: [ubuntu-latest, windows-latest]
         images: [hello-world, nginx]
+        
     runs-on: ${{ matrix.os }}
     steps:
       - name: Create a ${{ matrix.images }} container on ${{ matrix.os }}
