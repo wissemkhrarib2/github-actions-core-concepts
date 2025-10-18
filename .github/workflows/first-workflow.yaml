@@ -6,14 +6,13 @@ env:
           IMAGE_NAME: app
 jobs: 
   docker-job:
-    timeout-minutes: 1
     runs-on: ubuntu-latest
     steps: 
       - name: Build the image
-        run: sleep 50
+        run: echo docker build $CONTAINER_REGISTRY/${{vars.DOCKER_USERNAME}}/$IMAGE_NAME
         
       - name: Login
-        run: sleep 50
+        run: echo docker login  --username=${{vars.DOCKER_USERNAME}} --password=123456789
 
       - name: Push the image
         run: echo docker run $CONTAINER_REGISTRY/${{vars.DOCKER_USERNAME}}/$IMAGE_NAME
