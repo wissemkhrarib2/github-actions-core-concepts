@@ -2,7 +2,7 @@ name: Test docker image
 on: push
 jobs:
   deploy-on-ubuntu:
-    stategy:
+    strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
