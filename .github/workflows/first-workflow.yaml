@@ -2,14 +2,12 @@ name: Test docker image
 on: push
 jobs:
   deploy-on-ubuntu:
-    runs-on: ubuntu-latest
+    stategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
-      - name: create a container
-        run: docker run hello-world 
-  deploy-on-windows:
-    runs-on: windows-latest
-    steps:
-      - name: create a container
+      - name: test hello world
         run: docker run hello-world 
 
 
