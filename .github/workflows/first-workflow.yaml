@@ -1,5 +1,5 @@
 name: Build and deploy
-on: push
+on: workflow_dispatch
 env:
           CONTAINER_REGISTRY: docker.io
           DOCKER_USERNAME: wissem
@@ -16,14 +16,18 @@ jobs:
         run: sleep 50
 
       - name: Push the image
-        run: sleep 10000
+        run: echo docker run $CONTAINER_REGISTRY/${{vars.DOCKER_USERNAME}}/$IMAGE_NAME
   
   deploy-job:
+    concurrency: 
+      group: deploy-to-prod
     needs: docker-job
     runs-on: ubuntu-latest
     steps:
       - name: Run the app
-        run: echo docker run $CONTAINER_REGISTRY/${{vars.DOCKER_USERNAME}}/$IMAGE_NAME
+        run: |
+          echo docker run $CONTAINER_REGISTRY/${{vars.DOCKER_USERNAME}}/$IMAGE_NAME
+          sleep 6000
 
 
 
